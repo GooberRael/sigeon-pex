@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa de Coordenadas Simulado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+        #mapa-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #7f8c8d;
+            border: 3px solid #ecf0f1;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .jugador {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%); /* Centrar el punto en su coordenada */
+            box-shadow: 0 0 5px black;
+        }
+        .jugador:hover {
+            background-color: #f1c40f;
+        }
+        #info-panel {
+            background-color: #34495e;
+            padding: 15px;
+            width: 300px;
+            margin: 0 auto;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Radar Simulado (Solo Interfaz)</h2>
+    
+    <div id="info-panel">
+        Haz clic en un jugador para ver sus coordenadas.
+    </div>
+
+    <div id="mapa-container">
+        </div>
+
+    <script>
+        // Simulamos una lista de jugadores con posiciones X e Y (estáticas)
+        const jugadores = [
+            { id: "Jugador1", x: 150, y: 80, actividad: "Minando carbón" },
+            { id: "Jugador2", x: 400, y: 300, actividad: "Construyendo base" },
+            { id: "Jugador3", x: 520, y: 150, actividad: "Inactivo" }
+        ];
+
+        const mapa = document.getElementById('mapa-container');
+        const infoPanel = document.getElementById('info-panel');
+
+        // Dibujar a los jugadores en el mapa
+        jugadores.forEach(jugador => {
+            const punto = document.createElement('div');
+            punto.className = 'jugador';
+            
+            // Posicionar el punto según las coordenadas (simulando un minimapa)
+            punto.style.left = jugador.x + 'px';
+            punto.style.top = jugador.y + 'px';
+
+            // Evento al hacer clic en el jugador
+            punto.addEventListener('click', () => {
+                infoPanel.innerHTML = `
+                    <strong>${jugador.id}</strong><br>
+                    Coordenadas: X: ${jugador.x}, Y: ${jugador.y}<br>
+                    Estado: ${jugador.actividad}
+                `;
+            });
+
+            mapa.appendChild(punto);
+        });
+    </script>
+
+</body>
+</html>
